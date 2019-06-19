@@ -1,0 +1,12 @@
+pipeline 
+{
+    agent any 
+    stages{
+        stage('Test'){
+            steps{
+            sh 'sudo su - postgres -c "/usr/bin/createdb test2" '
+            sh 'su - postgres -c "psql -d test2 -Xf test.sql"'
+            }
+        }
+    }
+}
