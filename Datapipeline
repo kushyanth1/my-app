@@ -1,0 +1,13 @@
+node
+{
+    stage('git')
+    {
+        sh 'git clone https://github.com/lohitj/my-app'
+    }
+    stage('test')
+    {
+        sh 'cd my-app'
+        sh 'cd postgres'
+        sh 'docker run --rm -v /home/manya/sql:/flyway/sql boxfuse/flyway -url=jdbc:postgresql://172.16.12.13:5432/test -user=postgres migrate'
+    }
+}
