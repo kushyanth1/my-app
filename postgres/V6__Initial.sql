@@ -2,4 +2,4 @@
     MyColumn VARCHAR(100) NOT NULL
   );
 
-SELECT * FROM MyTable7
+SELECT * FROM MyTable6
