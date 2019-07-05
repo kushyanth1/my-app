@@ -1,4 +1,5 @@
  CREATE TABLE MyTable6 (
     MyColumn VARCHAR(100) NOT NULL
+  );
 
-SELECT * FROM MyTable5
+SELECT * FROM MyTable7
