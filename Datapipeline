@@ -1,13 +1,22 @@
 node
 {
+    stage('empty')
+    {
+        deleteDir()
+    }
+    
     stage('git')
     {
-        sh 'git clone https://github.com/lohitj/my-app'
+        sh 'git clone $git_url'
+        sh '${workspace}'
     }
     stage('test')
     {
-        sh 'cd my-app'
-        sh 'cd postgres'
-        sh 'docker run --rm -v /home/manya/sql:/flyway/sql boxfuse/flyway -url=jdbc:postgresql://172.16.12.13:5432/test -user=postgres migrate'
+        sh 'docker run --rm -v $directory:/flyway/sql boxfuse/flyway -url=$data -user=postgres migrate'
     }
+    stage('info')
+    {
+        sh 'docker run --rm -v $directory:/flyway/sql boxfuse/flyway -url=$data -user=postgres info'
+    }
+    
 }
