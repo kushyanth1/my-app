@@ -1,23 +1,18 @@
-node 
-{
-  def MAVEN_HOME = tool name: 'MAVEN_HOME', type: 'maven'
-      def JAVA_HOME = tool "JAVA_HOME"
-      env.PATH="${env.PATH}:${MAVEN_HOME}/bin:${JAVA_HOME}/bin"
-  stage('code checkout')
-  {
-      git 'https://github.com/manyatripathi/my-app'
-  }
-  stage('compile-package')
-  {
-      sh "sudo mvn clean"
-      sh "sudo mvn compile"
-      sh "sudo mvn package"
-  }
-  stage('SOnarQube Analysis')
-  {
-      withSonarQubeEnv('sonar-1')
-      {
-          sh 'sudo mvn sonar:sonar -Dsonar.host.url="http://localhost:9000"'
-      }
-  }
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+
+                // Run Maven on a Unix agent.
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+        }
+    }
 }
+
